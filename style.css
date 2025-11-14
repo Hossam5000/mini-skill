@@ -18,6 +18,8 @@ ul {
 }
 
 li {
-    padding: 10px;
+    display: inline-block;
+    box-sizing: content-box;
+    padding: 60px;
     border: 1px solid #000;
 }

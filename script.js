@@ -7,4 +7,4 @@ selected.style.backgroundColor = "green";
 selected.style.color = "white";
 
 // test
-console.log(selected.getElementByName);
+console.log(selected.getElementsByClassName("num"));
