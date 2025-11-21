@@ -1,7 +1,7 @@
 // vars & cons
 const Lis = document.querySelectorAll("ul li");
 const selected = document.querySelector(".selected");
-const date = Date.now();
+const date = new Date(2025, 10, 21, 9, 0, 0, 0);
 
 // logic
 selected.style.backgroundColor = "green";
@@ -9,4 +9,4 @@ selected.style.color = "white";
 
 
 // test
-console.log(date);
+console.log(date.toLocaleString("en-UK"));
