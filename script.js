@@ -1,9 +1,9 @@
 // vars & cons
 const Lis = document.querySelectorAll("ul li");
 const selected = document.querySelector(".selected");
-const date = new Date(2025, 10, 21, 9, 0, 0, 0);
-const regex = new RegExp(/abc/);
-let str = "Hi, what is your abc";
+
+const regex = new RegExp(/\bfox\b/g);
+let str = "A quick fox profox foxation can run very fast";
 // logic
 selected.style.backgroundColor = "green";
 selected.style.color = "white";
