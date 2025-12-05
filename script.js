@@ -2,14 +2,10 @@
 const Lis = document.querySelectorAll("ul li");
 const selected = document.querySelector(".selected");
 
-const regex = new RegExp(/\bfox\b/g);
-let str = `A quick fox profox foxation can run very fast
-so any fox can run slowly and foxy trifox can't catch it.
-`;
+const regex = new RegExp(/[\b]/g);
+let str = `You can play the next \b turn on A4 or even at C2, did you hear about A2 and 9S`;
 // logic
-selected.style.backgroundColor = "green";
-selected.style.color = "white";
 
 
 // test
-console.log(str.match(regex));
+console.log(str, str.match(regex));
