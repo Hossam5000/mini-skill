@@ -1,61 +1,73 @@
-const video = document.getElementById('video-element');
-const startBtn = document.getElementById('start-btn');
-const switchBtn = document.getElementById('switch-btn');
-const stopBtn = document.getElementById('stop-btn');
-
+// vars & cons
+const video = document.getElementById("video-element");
+const startBtn = document.getElementById("start-btn");
+const testBtn = document.getElementById("test");
+const Result = document.getElementById("result");
+const charge = document.getElementById("charge");
+const chargeBtn = document.getElementById("chargeBtn");
 let currentStream = null;
-let useFacingMode = "user"; // "user" = front, "environment" = back
+let constraints = {
+    video: {
+        facingMode: "user",
+    },
+    audio: false,
+}
+// functions
+// const startCamera = async () => {
+//     const constraints = {
+//         video: {
+//             facingMode: "environment",
+//             width: { ideal: 1280 },
+//             heigt: { ideal: 720 },
+//         },
+//         audio: false,
+//     };
 
-// 1. Start Camera Function
-async function startCamera() {
-    // Stop any existing tracks before starting new ones
-    stopCamera();
+//     // Check if geolocation is supported
 
-    const constraints = {
-        video: {
-            facingMode: useFacingMode,
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-        },
-        audio: false
-    };
+//     try {
+//         currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+//         video.srcObject = currentStream;
+//     }
+//     catch (err) {
+//         console.error("Error", err);
+//         alert(err);
+//     }
+// };
 
+const startCamera = async () => {
     try {
-        currentStream = await navigator.mediaDevices.getUserMedia(constraints);
-        video.srcObject = currentStream;
-
-        // UI Updates
-        startBtn.style.display = 'none';
-        stopBtn.style.display = 'inline-block';
-        switchBtn.style.display = 'inline-block';
-
-        // Toggle mirror class based on camera
-        video.className = (useFacingMode === "user") ? "" : "environment";
-
-    } catch (err) {
-        console.error("Error: ", err);
-        alert("Could not access camera. Ensure you are on HTTPS or Localhost.");
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
     }
-}
-
-// 2. Stop Camera Function
-function stopCamera() {
-    if (currentStream) {
-        currentStream.getTracks().forEach(track => track.stop());
-        video.srcObject = null;
+    catch (err) {
+        alert("not working", err)
     }
-    startBtn.style.display = 'inline-block';
-    stopBtn.style.display = 'none';
-    switchBtn.style.display = 'none';
+};
+
+const testFunc = async () => {
+    try {
+        const battery = await navigator.getBattery();
+        Result.textContent = `${battery.level}%`;
+    }
+    catch (err) {
+        alert("Failed to test the API:", err);
+    };
 }
 
-// 3. Switch Camera Logic
-function switchCamera() {
-    useFacingMode = (useFacingMode === "user") ? "environment" : "user";
-    startCamera(); // Restart with new constraints
-}
+const chargeFunc = async () => {
+    try {
+        const isCharge = await navigator.getBattery();
+        charge.textContent = `${isCharge.charging}`;
+    }
+    catch (err) {
+        alert("can't reach the charging api");
+    }
+};
 
-// Event Listeners
-startBtn.addEventListener('click', startCamera);
-stopBtn.addEventListener('click', stopCamera);
-switchBtn.addEventListener('click', switchCamera);
+// event listeners
+startBtn.addEventListener("click", startCamera);
+testBtn.addEventListener("click", testFunc);
+chargeBtn.addEventListener("click", chargeFunc);
+// test
+console.log();
